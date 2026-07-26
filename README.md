@@ -4,7 +4,7 @@
 # 🧠 Servidor modular FastAPI con Alexa + IA
 
 Servidor modular basado en **FastAPI**, diseñado para integrarse con un **Skill personalizado de Alexa** en dispositivos como **Echo Spot**.
-Permite procesar consultas de voz mediante motores de **IA local (Ollama/GPT4All)** o **IA remota (OpenAI/Azure)**, con autenticación JWT y configuración centralizada.
+Permite procesar consultas de voz mediante motores de **IA local (Ollama/GPT4All)** o **IA remota (OpenAI/Azure)**, con autenticación JWT, configuración centralizada y endurecimiento básico para desarrollo.
 
 ---
 
@@ -35,6 +35,8 @@ fastapi-alexa-ia/
 │
 ├── requirements.txt
 ├── Dockerfile
+├── .dockerignore
+├── .gitignore
 ├── docker-compose.yml
 └── README.md
 ```
@@ -60,10 +62,19 @@ Crea un archivo `.env` en la raíz del proyecto:
 ```env
 AI_ENGINE=ollama
 OPENAI_API_KEY=tu_api_key
-JWT_SECRET=clave_secreta_super_segura
 AZURE_OPENAI_ENDPOINT=https://tu-endpoint.openai.azure.com
 AZURE_OPENAI_KEY=tu_api_key_azure
+OLLAMA_HOST=http://localhost:11434
+EXPOSE_CONFIG_ENDPOINT=false
+DEMO_USERNAME=admin
+DEMO_PASSWORD=1234
+JWT_SECRET=clave_secreta_super_segura
 ```
+
+Notas:
+- `JWT_SECRET` debe ser un valor fuerte y único en producción.
+- `EXPOSE_CONFIG_ENDPOINT` deja el endpoint de diagnóstico deshabilitado por defecto.
+- `DEMO_USERNAME` y `DEMO_PASSWORD` son credenciales de desarrollo; sustitúyelas por validación real en despliegues.
 
 ---
 
@@ -102,6 +113,15 @@ docker-compose up -d
 Servicios disponibles:
 - FastAPI → `http://localhost:8000`
 - Ollama → `http://localhost:11434`
+
+Ten en cuenta que `.dockerignore` excluye secretos, entornos virtuales y artefactos generados para evitar que entren en la imagen.
+
+## 🔒 Seguridad
+
+- El endpoint de diagnóstico `/config` sólo se publica si `EXPOSE_CONFIG_ENDPOINT=true`.
+- El login de desarrollo usa credenciales configurables desde `.env`; no debe usarse como autenticación real.
+- El secreto JWT no debe dejarse con el valor por defecto.
+- `.gitignore` y `.dockerignore` excluyen `.env`, `app/.env`, `__pycache__`, `.venv` y artefactos de build.
 
 ---
 
@@ -158,5 +178,6 @@ flowchart LR
 - Integración con Prometheus + Grafana
 - Pipeline CI/CD con Jenkins
 - Skill de Alexa multilenguaje
+- Sustituir el login mock por autenticación real con persistencia
 
 ---
