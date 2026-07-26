@@ -1,10 +1,9 @@
 
 ---
 
-# 🧠 Servidor modular FastAPI con Alexa + IA
+📖 Introducción al Proyecto
 
-Servidor modular basado en **FastAPI**, diseñado para integrarse con un **Skill personalizado de Alexa** en dispositivos como **Echo Spot**.
-Permite procesar consultas de voz mediante motores de **IA local (Ollama/GPT4All)** o **IA remota (OpenAI/Azure)**, con autenticación JWT, configuración centralizada y endurecimiento básico para desarrollo.
+Este proyecto integra un **servidor FastAPI modular con JWT y configuración centralizada** como backend de un **Skill Alexa personalizado**, permitiendo que un Echo Spot actúe como interfaz de voz para motores de IA locales (Ollama/GPT4All) o remotos (OpenAI/Azure) con autenticación JWT, configuración centralizada y endurecimiento básico para desarrollo. 
 
 ---
 
