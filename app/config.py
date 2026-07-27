@@ -18,6 +18,7 @@ class Settings(BaseSettings):
 
     # Configuración Ollama
     ollama_host: str | None = None
+    ollama_model: str = "llama2"
 
     # Endpoints y credenciales de desarrollo
     expose_config_endpoint: bool = False

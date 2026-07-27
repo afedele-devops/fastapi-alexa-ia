@@ -1,5 +1,6 @@
 from fastapi import HTTPException
 import requests
+from app.config import settings
 from app.utils.logger import logger
 from app.modules.ia_engine import IAEngine
 
@@ -33,4 +34,4 @@ def query_ollama(model: str, prompt: str) -> str:
 
 class OllamaEngine(IAEngine):
     def query(self, prompt: str) -> str:
-        return query_ollama("llama2", prompt)
+        return query_ollama(settings.ollama_model, prompt)

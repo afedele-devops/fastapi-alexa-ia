@@ -64,6 +64,7 @@ OPENAI_API_KEY=tu_api_key
 AZURE_OPENAI_ENDPOINT=https://tu-endpoint.openai.azure.com
 AZURE_OPENAI_KEY=tu_api_key_azure
 OLLAMA_HOST=http://localhost:11434
+OLLAMA_MODEL=llama2
 EXPOSE_CONFIG_ENDPOINT=false
 DEMO_USERNAME=admin
 DEMO_PASSWORD=1234
@@ -74,6 +75,8 @@ Notas:
 - `JWT_SECRET` debe ser un valor fuerte y único en producción.
 - `EXPOSE_CONFIG_ENDPOINT` deja el endpoint de diagnóstico deshabilitado por defecto.
 - `DEMO_USERNAME` y `DEMO_PASSWORD` son credenciales de desarrollo; sustitúyelas por validación real en despliegues.
+- `OLLAMA_MODEL` define el modelo que usa `OllamaEngine`, por ejemplo `llama2`, `mistral` o cualquier modelo descargado en Ollama.
+- Si FastAPI se ejecuta dentro de Docker Compose, `OLLAMA_HOST` debería apuntar a `http://ollama:11434` en lugar de `http://localhost:11434`.
 
 ---
 
@@ -114,6 +117,7 @@ Servicios disponibles:
 - Ollama → `http://localhost:11434`
 
 Ten en cuenta que `.dockerignore` excluye secretos, entornos virtuales y artefactos generados para evitar que entren en la imagen.
+Además, el servicio auxiliar de Compose puede precargar `llama2` en el volumen persistente de Ollama durante el arranque.
 
 ## 🔒 Seguridad
 
